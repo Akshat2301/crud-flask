@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Profile</title>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="{{url_for('static', filename='css/profile.css')}}" rel="stylesheet">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+    <div class="main-body">
+    
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img src="{{url_for('static', filename='img/user.png')}}" width="150" height="150">
+                    <div class="mt-3">
+                      <h4>{{emp.firstName}} {{emp.lastName}}</h4>
+                      <p class="text-secondary mb-1">{{emp.email}}</p>
+                      <p class="text-muted font-size-sm">{{emp.phone}}</p>
+                      <a href="{{ url_for('users.edit',sno = emp.id, flag = 0) }}"><button class="btn btn-primary">Update</button></a>
+                      <a href="{{ url_for('users.logout_emp') }}"><button type="button" class="btn btn-outline-primary">Logout</button></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8" >
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">First Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{emp.firstName}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Last Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{emp.lastName}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Email</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{emp.email}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Phone</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{emp.phone}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Address</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{emp.address}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Date-Of-Birth</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{emp.dob}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+          	</div>
+          	<div class="col-md-12">
+          		
+          	<h1>Other Employees</h1>
+          	</div>
+          	<div class="col-md-12" style="overflow:auto; height:400px;">
+              <div class="card mb-3">
+                	{% for x in other_emp %}
+                <div class="card-body">
+                  <div class="row" style="text-align: center;">
+                    <div class="col-sm-4">
+                      <h6 class="mb-0">{{x.firstName}} {{x.lastName}}</h6>
+                    </div>
+                    <div class="col-sm-8 text-secondary">
+                      {{x.email}}
+                    </div>
+                  </div>
+                </div>
+                  <hr>
+                  {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+<!-- partial -->
+  
+</body>
+</html>

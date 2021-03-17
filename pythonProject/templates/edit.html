@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
+    <!--  All snippets are MIT license http://bootdey.com/license -->
+    <title>Edit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+    	body {
+    margin: 0;
+    padding-top: 40px;
+    color: #2e323c;
+    background: #f5f6fa;
+    position: relative;
+    height: 100%;
+	}
+.account-settings .user-profile {
+    margin: 0 0 1rem 0;
+    padding-bottom: 1rem;
+    text-align: center;
+	}
+.account-settings .user-profile .user-avatar {
+    margin: 0 0 1rem 0;
+}
+.account-settings .user-profile .user-avatar img {
+    width: 90px;
+    height: 90px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+}
+.account-settings .user-profile h5.user-name {
+    margin: 0 0 0.5rem 0;
+}
+.account-settings .user-profile h6.user-email {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #9fa8b9;
+}
+.account-settings .about {
+    margin: 2rem 0 0 0;
+    text-align: center;
+}
+.account-settings .about h5 {
+    margin: 0 0 15px 0;
+    color: #007ae1;
+}
+.account-settings .about p {
+    font-size: 0.825rem;
+}
+.form-control {
+    border: 1px solid #cfd1d8;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-size: .825rem;
+    background: #ffffff;
+    color: #2e323c;
+}
+
+.card {
+    background: #ffffff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 0;
+    margin-bottom: 1rem;
+}
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+<div class="row gutters">
+<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+<div class="card h-50">
+	<div class="card-body">
+		<div class="account-settings">
+			<div class="user-profile">
+				<div class="user-avatar">
+					<img src="{{url_for('static', filename='img/user.png')}}" width="150" height="150">
+				</div>
+				<h5 class="user-name">{{emp.firstName}} {{emp.lastName}}</h5>
+				<h6 class="user-email">{{emp.email}}</h6>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+<div class="card h-100">
+	<div class="card-body">
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<h6 class="mb-2 text-primary">Employee Details</h6>
+			</div>
+			<form class="col-md-12" action="/edit/{{emp.id}}/{{flag}}" method="post">
+			<div class="form-group row">
+	            <label for="firstName" class="col-md-4 col-form-label text-md-right">First Name</label>
+	            <div class="col-md-6">
+	                <input type="text" id="firstName" class="form-control" name="firstName" value="{{emp.firstName}}" required>
+	            </div>
+	        </div>
+			<div class="form-group row">
+                <label for="lastName" class="col-md-4 col-form-label text-md-right">Last Name</label>
+                <div class="col-md-6">
+                    <input type="text" id="lastName" class="form-control" name="lastName" value="{{emp.lastName}}">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                <div class="col-md-6">
+                    <input type="email" id="email" class="form-control" name="email" value="{{emp.email}}" required>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="phone" class="col-md-4 col-form-label text-md-right">Phone Number</label>
+                <div class="col-md-6">
+                    <input type="text" id="phone" class="form-control" name="phone" value="{{emp.phone}}" minlength="10">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="present_address" class="col-md-4 col-form-label text-md-right"> Date-Of-Birth</label>
+                <div class="col-md-6">
+                    <input type="date" id="DOB" class="form-control" value="{{emp.dob}}" name="DOB">
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="present_address" class="col-md-4 col-form-label text-md-right"> Address</label>
+                <div class="col-md-6">
+                    <textarea class="form-control" id="address" name="address">{{emp.address}}</textarea>
+                </div>
+            </div>
+            {% if flag == '0' %}
+            <div class="form-group row">
+                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                <div class="col-md-6">
+                    <input type="password" id="password" class="form-control" minlength="8" name="password" value="{{emp.password}}">
+                </div>
+            </div>
+            {% endif %}
+			
+		</div>
+		{% with messages = get_flashed_messages(with_categories=true)  %}
+   
+	        <div class="col-md-6 offset-md-4">
+	        	{% if messages %}
+			  {% for category, message in messages %}
+			  <div class="alert alert-{{category}} alert-dismissible fade show">
+			    {{ message }}
+			    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			      <span aria-hidden="true">×</span>
+			    </button>
+			  </div>
+			  {% endfor %}
+			  {% endif %}
+			  {% endwith %}
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<div class="text-right">
+					<button type="submit" id="update" name="update" class="btn btn-primary">Update</button>
+					{% if flag == '0' %}
+					<a href="{{ url_for('users.profile', sno = emp.id) }}"><button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button></a>
+					{% else %}
+					<a href="{{ url_for('admin.admin_login') }}"><button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button></a>
+
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+</div>
+</div>
+</div>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>
